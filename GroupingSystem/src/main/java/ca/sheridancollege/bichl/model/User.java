@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.springframework.context.annotation.ComponentScan;
 
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -33,6 +32,7 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@Column(name = "email")
 	private String email;
 	
 	private String password;

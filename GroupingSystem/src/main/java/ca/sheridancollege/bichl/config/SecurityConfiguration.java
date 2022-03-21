@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+import ca.sheridancollege.bichl.service.StudentUserDetailsService;
 import ca.sheridancollege.bichl.service.UserService;
 
 @Configuration
@@ -25,6 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserService userService;
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new StudentUserDetailsService();
+	}
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -51,10 +59,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	                "/js/**",
 	                "/css/**",
 	                "/img/**").permitAll()
-		.anyRequest().authenticated()
+		.antMatchers("/user/**","/cart").authenticated()
+		.anyRequest().authenticated() 
 		.and()
 		.formLogin()
 		.loginPage("/login")
+		.usernameParameter("email")
 		.permitAll()
 		.and()
 		.logout()
@@ -63,6 +73,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutSuccessUrl("/login?logout")
 		.permitAll();
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/images/**,/js/**");
 	}
 
 }

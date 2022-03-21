@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create New Event</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+<script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<h1>Event Management</h1>
+		<hr>
+		<h2>Save Event</h2>
+		
+		<form action="#" th:action="@{/saveEvent}" th:object="${event}" method="POST">
+			<div class="form-group">
+				<label class="control-label" for="eventName"> Event Name: </label>
+				<input type="text" th:field="*{eventName}" placeholder="Event Name" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="hostName"> Host Name: </label>
+				<input type="text" th:field="*{hostName}" placeholder="Host Name" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="Description"> Description: </label>
+				<input type="text" th:field="*{Description}" placeholder="Brife about event" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="typeOfEvent"> Type Of Event: </label>
+				<select class="form-select" aria-label="Default select example" th:field="*{typeOfEvent}">
+  					<option th:each="typeOfEvent : ${typeOfEventList}" th:value="${typeOfEvent}" th:text="${typeOfEvent}"/>
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="Category"> Category: </label>
+				<input type="text" th:field="*{Category}" placeholder="Category" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="location"> Location: </label>
+				<input type="text" th:field="*{location}" placeholder="Location" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="date"> Date: </label>
+				<input type="date" id="date" name="birthday" th:field="*{date}">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="time"> Time: </label>
+				<!-- <input type="time" id="time" name="time" th:field="*{time}"> -->
+				<input id="time" type="time" name="time" step="2" th:field="*{time}">
+
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="numOfSpot"> Number Of Spot: </label>
+				<input type="text" th:field="*{numOfSpot}" placeholder="Number Of Spot" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="numOfAttentdance"> Number Of Attendance: </label>
+				<input type="text" th:field="*{numOfAttentdance}" placeholder="Number Of Attendance" class="form-control mb-4 col-4">
+			</div>
+		
+			
+			<button type="submit" class="btn btn-info col-2">Save Event</button>
+		</form>
+	</div>
+</body>
+</html>
