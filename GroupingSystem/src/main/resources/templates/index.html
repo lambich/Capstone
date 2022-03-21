@@ -5,40 +5,124 @@
 <meta charset="ISO-8859-1">
 <title>Registration and Login App</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
 	<!-- create navigation bar ( header) -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Grouping Application</a>
-			</div>
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary  navbar-fixed-top">
+		<a class="navbar-brand" href="@{/}">Grouping Application</a>
 			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				<ul class="navbar-nav">
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
 				</ul>
 			</div>
-		</div>
-	</nav>
-
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search">
+      				<button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+			</form>
+	
+	</nav> 
+  
 	<br>
 	<br>
 
 	<div class="container">
 		<h1>Pick Your Group To Join Event</h1>
-		<h1>Welcome <span sec:authentication="principal.username"> User</span></h1>
+		Welcome <span sec:authentication="principal.username"> User</span>
+	</div>
+	<div align="center" class="container my-2">
+	<h1 align="left">Event List</h1>
+		<div class="row col-sm-10">
+			<div align="left" class="col-sm-2">
+				<a th:href = "@{/showNewEventForm}" class="btn btn-primary btn-sm mb-3">Add New Event</a><hr>
+			</div> 
+			<div align="left" class="col-sm-2">
+				<a th:href = "@{/cart}" class="btn btn-success btn-sm mb-3">Event Cart</a><hr>
+			</div> 
+			<div class="col-sm-2">
+				<form>
+    				<select name="cars" class="custom-select mb-3">
+      					<option selected>Sort By</option>
+      					<option value="@{'/page/' + ${currentPage} + '?sortField=eventName&sortDir=' + ${reverseSortDir}}">Event Name</option>
+      					<option value="@{'/page/' + ${currentPage} + '?sortField=hostName&sortDir=' + ${reverseSortDir}}">Host Name</option>
+  					</select> 
+  				</form>
+			</div> 
+		</div>
+		
+		
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=eventName&sortDir=' + ${reverseSortDir}}">Event Name <i class="bi bi-arrow-down-up"></i></a></th>
+					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=hostName&sortDir=' + ${reverseSortDir}}">Host Name <i class="bi bi-arrow-down-up"></i></a></th>
+					<th>Type Of Event<i class="bi bi-arrow-down-up"></i></th>
+					<th>Category</th>
+					<th>Description</th>
+					<th>Location</th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Number Of Spot</th>
+					<th>Number Of Attendance</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="event: ${listEvents}">
+					<td th:text="${event.eventName}"></td>
+					<td th:text="${event.hostName}"></td>
+					<td th:text="${event.typeOfEvent}"></td>
+					<td th:text="${event.Category}"></td>
+					<td th:text="${event.Description}"></td>
+					<td th:text="${event.location}"></td>
+					<td th:text="${event.date}"></td>
+					<td th:text="${event.time}"></td>
+					<td th:text="${event.numOfSpot}"></td>
+					<td th:text="${event.numOfAttentdance}"></td>
+					<td> <a th:href="@{/showFormForUpdate/{id}(id=${event.id})}" class="btn btn-primary">Edit</a>
+						 <a th:href="@{/deleteEvent/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:if = "${totalPages > 1}">
+			<div class = "row col-sm-10">
+				<div class = "col-sm-2">
+					Total Events: [[${totalItems}]] 
+				</div>
+				<div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+				</div>
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+   				 </div>
+			</div>
+			<!-- <ul class="pagination">
+				
+  				<li th:unless="${currentPage != 1}"><a class="page-link" th:href="@{'/page/' + ${currentPage -1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+  				</li>
+  				<li th:unless="${currentPage == 1}" class="page-item disabled"><a class="page-link" href="#">Previous</a></li> 
+  				
+  				<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a></li>
+				<li th:unless="${currentPage != i}">[[${i}]] &nbsp; &nbsp;</li> 
+				
+  				<li class="page-item"><a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+  				</li>
+  				<li th:unless="${currentPage < totalPages}" class="page-item disabled"><a class="page-link" href="#">Last</a></li>
+			</ul> -->
+		</div>
 	</div>
 </body>
-</html>>
+</html>
