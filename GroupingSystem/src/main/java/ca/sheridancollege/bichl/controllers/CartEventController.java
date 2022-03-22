@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.web;
+package ca.sheridancollege.bichl.controllers;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import ca.sheridancollege.bichl.Addition.StudentUserDetails;
-import ca.sheridancollege.bichl.model.CartEvent;
-import ca.sheridancollege.bichl.model.Event;
-import ca.sheridancollege.bichl.model.User;
-import ca.sheridancollege.bichl.repository.CartEventRepository;
-import ca.sheridancollege.bichl.service.CartEventServices;
-import ca.sheridancollege.bichl.service.UserService;
+import ca.sheridancollege.bichl.beans.CartEvent;
+import ca.sheridancollege.bichl.beans.Event;
+import ca.sheridancollege.bichl.beans.User;
+import ca.sheridancollege.bichl.repositories.CartEventRepository;
+import ca.sheridancollege.bichl.services.CartEventServices;
+import ca.sheridancollege.bichl.services.UserService;
 
 @Controller
 public class CartEventController {

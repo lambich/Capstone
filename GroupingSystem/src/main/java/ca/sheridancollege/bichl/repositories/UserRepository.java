@@ -1,9 +1,9 @@
-package ca.sheridancollege.bichl.repository;
+package ca.sheridancollege.bichl.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import ca.sheridancollege.bichl.model.User;
+import ca.sheridancollege.bichl.beans.User;
 
 
 public interface UserRepository extends JpaRepository<User, Long>{

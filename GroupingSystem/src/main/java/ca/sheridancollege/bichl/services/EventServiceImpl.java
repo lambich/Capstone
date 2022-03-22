@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.service;
+package ca.sheridancollege.bichl.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import ca.sheridancollege.bichl.model.Event;
-import ca.sheridancollege.bichl.repository.EventRepository;
+import ca.sheridancollege.bichl.beans.Event;
+import ca.sheridancollege.bichl.repositories.EventRepository;
 
 
 @Service

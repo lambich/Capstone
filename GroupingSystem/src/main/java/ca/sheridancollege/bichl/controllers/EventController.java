@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.web;
+package ca.sheridancollege.bichl.controllers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ca.sheridancollege.bichl.model.Event;
-import ca.sheridancollege.bichl.service.EventService;
+import ca.sheridancollege.bichl.beans.Event;
+import ca.sheridancollege.bichl.services.EventService;
 
 @Controller
 public class EventController {

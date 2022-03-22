@@ -1,13 +1,13 @@
-package ca.sheridancollege.bichl.service;
+package ca.sheridancollege.bichl.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ca.sheridancollege.bichl.model.User;
-import ca.sheridancollege.bichl.model.CartEvent;
-import ca.sheridancollege.bichl.repository.CartEventRepository;
+import ca.sheridancollege.bichl.beans.CartEvent;
+import ca.sheridancollege.bichl.beans.User;
+import ca.sheridancollege.bichl.repositories.CartEventRepository;
 
 @Service
 public class CartEventServices {

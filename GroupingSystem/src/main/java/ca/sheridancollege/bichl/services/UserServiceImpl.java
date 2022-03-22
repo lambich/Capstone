@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.service;
+package ca.sheridancollege.bichl.services;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,10 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ca.sheridancollege.bichl.Addition.StudentUserDetails;
-import ca.sheridancollege.bichl.model.Role;
-import ca.sheridancollege.bichl.model.User;
-import ca.sheridancollege.bichl.repository.UserRepository;
-import ca.sheridancollege.bichl.service.UserService;
+import ca.sheridancollege.bichl.beans.Role;
+import ca.sheridancollege.bichl.beans.User;
+import ca.sheridancollege.bichl.repositories.UserRepository;
+import ca.sheridancollege.bichl.services.UserService;
 import ca.sheridancollege.bichl.web.dto.UserRegistrationDto;
 
 @Service

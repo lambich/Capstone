@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.model;
+package ca.sheridancollege.bichl.beans;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

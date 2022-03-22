@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.model;
+package ca.sheridancollege.bichl.beans;
 
 import java.util.Collection;
 

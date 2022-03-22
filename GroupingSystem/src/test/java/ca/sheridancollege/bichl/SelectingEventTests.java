@@ -13,10 +13,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
-import ca.sheridancollege.bichl.model.CartEvent;
-import ca.sheridancollege.bichl.model.Event;
-import ca.sheridancollege.bichl.model.User;
-import ca.sheridancollege.bichl.repository.CartEventRepository;
+import ca.sheridancollege.bichl.beans.CartEvent;
+import ca.sheridancollege.bichl.beans.Event;
+import ca.sheridancollege.bichl.beans.User;
+import ca.sheridancollege.bichl.repositories.CartEventRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

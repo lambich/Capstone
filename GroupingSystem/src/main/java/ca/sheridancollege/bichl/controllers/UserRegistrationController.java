@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.web;
+package ca.sheridancollege.bichl.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ca.sheridancollege.bichl.service.UserService;
+import ca.sheridancollege.bichl.services.UserService;
 import ca.sheridancollege.bichl.web.dto.UserRegistrationDto;
 
 @Controller

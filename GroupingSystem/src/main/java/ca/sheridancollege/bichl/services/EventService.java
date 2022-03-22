@@ -1,10 +1,10 @@
-package ca.sheridancollege.bichl.service;
+package ca.sheridancollege.bichl.services;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import ca.sheridancollege.bichl.model.Event;
+import ca.sheridancollege.bichl.beans.Event;
 
 public interface EventService {
 

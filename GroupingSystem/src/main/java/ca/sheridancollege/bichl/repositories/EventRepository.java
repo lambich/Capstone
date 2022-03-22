@@ -1,9 +1,9 @@
-package ca.sheridancollege.bichl.repository;
+package ca.sheridancollege.bichl.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ca.sheridancollege.bichl.model.Event;
+import ca.sheridancollege.bichl.beans.Event;
 
 
 @Repository

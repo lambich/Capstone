@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import ca.sheridancollege.bichl.model.Role;
-import ca.sheridancollege.bichl.model.User;
+import ca.sheridancollege.bichl.beans.Role;
+import ca.sheridancollege.bichl.beans.User;
 
 public class StudentUserDetails implements UserDetails {
 

@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.web;
+package ca.sheridancollege.bichl.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ca.sheridancollege.bichl.service.EventService;
+import ca.sheridancollege.bichl.services.EventService;
 
 @Controller
 public class MainController {

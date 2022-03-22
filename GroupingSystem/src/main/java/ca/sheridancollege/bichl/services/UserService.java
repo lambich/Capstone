@@ -1,4 +1,4 @@
-package ca.sheridancollege.bichl.service;
+package ca.sheridancollege.bichl.services;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import ca.sheridancollege.bichl.model.User;
 import ca.sheridancollege.bichl.Addition.StudentUserDetails;
+import ca.sheridancollege.bichl.beans.User;
 import ca.sheridancollege.bichl.web.dto.UserRegistrationDto;
 
 public interface UserService extends UserDetailsService {
