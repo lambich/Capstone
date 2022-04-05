@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+</head>
+<body>
+	<div class="container">
+		<h1>Event Management</h1>
+		<hr>
+		<h2>Edit Event</h2>
+		
+		<form action="#" th:action="@{/saveEvent}" th:object="${event}" method="POST">
+			<!-- Add hidden id for update -->
+			<input type="hidden" th:field="*{id}">
+			<input type="text" th:field="*{eventName}" placeholder="Event Name" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{hostName}" placeholder="Host Name" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{Description}" placeholder="Brife about event" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{typeOfEvent}" placeholder="Type Of Event" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{Category}" placeholder="Categorye" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{location}" placeholder="Location" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{date}" placeholder="YYYY-MM-DD" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{time}" placeholder="hh:mm:ss" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{numOfSpot}" placeholder="Number Of Spot" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{numOfAttentdance}" placeholder="Number Of Attendance" class="form-control mb-4 col-4">
+			
+			<button type="submit" class="btn btn-info col-2">Save Event</button>
+		</form>
+	</div>
+</body>
+</html>
