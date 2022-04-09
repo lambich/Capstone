@@ -1,6 +1,8 @@
 package ca.sheridancollege.bichl.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,17 +10,20 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
+import lombok.NoArgsConstructor;
 
 //@ComponentScan
 @Entity
+@NoArgsConstructor
+
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
@@ -37,6 +42,10 @@ public class User {
 	
 	private String password;
 	
+	private String program;
+	
+	//private List<Course> courseList;
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",
@@ -46,11 +55,12 @@ public class User {
 					name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 	
-
-	public User()
-	{
-		
-	}
+	
+	@OneToMany
+	private List<Course> courseList = new ArrayList<Course>();
+	
+	@OneToMany
+	private List<Topic> topicList = new ArrayList<Topic>();
 	
 	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
 		super();
@@ -84,6 +94,12 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getProgram() {
+		return program;
+	}
+	public void setProgram(String program) {
+		this.program = program;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -95,5 +111,9 @@ public class User {
 	}
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public List<Course> getCourseList(){
+		return this.courseList;
 	}
 }

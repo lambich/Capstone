@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title th:text="${originalUser.email}"></title>
+</head>
+<body th:object="${originalUser}">
+	<h1 th:text="${originalUser.email}">USER EMAIL</h1>
+	
+	<a th:href="@{/userProfileEdit}"><button type="button">Edit Profile</button></a>
+	<img alt="profilePicture"/>
+	<hr>
+	<table>
+		<tr>
+			<td>
+			<span><td>First Name:</td>
+			<p th:text="${originalUser.firstName}"></p></span>
+			</td>
+			<td>
+			<span><td>Last Name:</td>
+			<p th:text="${originalUser.lastName}"></p></span>
+			</td>
+		</tr>
+	</table>
+	<p>Program:</p>
+	<p th:text="${originalUser.program}"></p>
+	<table>
+		<tr>
+			<th><h2>Courses</h2></th>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Course Name</h3>
+					<p>Course schedule</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<hr>
+	<h2>Topics</h2>
+	
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title th:text="${originalUser.email}"></title>
+</head>
+<body th:object="${originalUser}">
+	<h1 th:text="${originalUser.email}">USER EMAIL</h1>
+	
+	<form th:action="@{/userProfileEdit}" th:object="${user}" method="post">
+	<input type="hidden" th:field="*{email}" th:value="${originalUser.email}">
+	<img alt="profilePicture"/>
+	<hr>
+	
+			<span>First Name:
+			<input type="text" th:value="${originalUser.firstName}" th:field="*{firstName}"/></span>
+
+			<span>Last Name:
+			<input type="text" th:placeholder="${originalUser.lastName}" th:field="*{lastName}"/></span>
+				<p>Program:</p>
+			<input type="text" th:placeholder="${originalUser.program}" th:field="*{program}"/>
+			<input type="submit" value="Save Changes!"/>
+	</form>
+	
+	<table>
+		<tr>
+			<th><h2>Courses</h2></th>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Course Name</h3>
+					<p>Course schedule</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<form th:action="@{/addCourse}" th:object="${course}" method="post">
+		<input type="hidden" th:field="*{id}"/>
+		<input type="text"  placeholder="Course Name" th:field="*{courseName}"/>
+		<input type="text" placeholder="Course Day" th:field="*{courseDay}" />
+		<input type="text" placeholder="Course Time" th:field="*{courseTime}" />
+		<input type="submit" value="Add Course!"/>
+	</form>
+	<hr>
+	<h3>Topics</h3>
+	<p>Select from the dropdown below to save a topic!</p>
+	<select>
+	</select>
+</body>
+</html>

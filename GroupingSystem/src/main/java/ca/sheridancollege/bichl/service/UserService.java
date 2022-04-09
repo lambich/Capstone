@@ -30,6 +30,7 @@ public interface UserService extends UserDetailsService {
 	User getCurrentlyLoggedInUser(Authentication authentication);
 
 	User getUserByEmail(String email);
+	
 
 	//public  User getCurrentlyLoggedInUser(Authentication authentication);
 	
