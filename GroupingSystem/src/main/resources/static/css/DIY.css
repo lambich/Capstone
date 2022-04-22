@@ -1,0 +1,16 @@
+body {
+  padding-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.card {
+  flex-direction: row;
+}
+
+.card img {
+  width: 250px;
+  height: 160px;
+}

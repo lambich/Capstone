@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://getbootstrap.com/docs/4.0/examples/navbars/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbars/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <!-- Custom styles for this template -->
+    <link href="" rel="stylesheet" th:href="@{/css/DIY.css}">
+    
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <body>
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark d-flex flex-row">
+      <a class="navbar-brand " href="/">Grouping Now</a>
+    
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Groups</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAnonymous()">
+            <a class="nav-link" href="/login">Log in</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/viewUsers"><span th:text="${user}"></span></a>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/logout">Log out</a>
+          </li>
+         </ul>
+        </div> 
+
+        <div>
+            <form class="form-inline my-md-2">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected value="0">Event</option>
+                    <option value="1">Group</option>
+                  </select>
+                <input class="form-control m-2" type="text" placeholder="Search">
+                <button type="button" class="btn btn-primary">Search</button>
+              </form>
+        </div>
+    </nav>
+
+    <!--**************************************Body Div*************************************-->
+    <div class="list-group m-5">
+        <h2>Events</h2>
+        <div class="card list-group-item d-flex flex-row" th:each="e : ${events}">
+            <img class="card-img-top" th:src="'data:image/jpeg;base64,'+${e.getBase64Encoded()}"/>
+            <div class="card-body">
+                <h5 class="card-title" th:text="'Event Name:'+${e.eventName}"></h5>
+                <p class="card-text" th:text="${e.Description}"></p>
+                <a href="#" class="btn btn-primary">Find Details</a>
+            </div>
+        </div>
+      </div>
+
+      <div class="list-group m-5">
+        <h2>Groups</h2>
+        <div class="card list-group-item d-flex flex-row" th:each="g : ${groups}">
+            <img class="card-img-top" th:src="'data:image/jpeg;base64,'+${g.getBase64Encoded()}"/>
+            <div class="card-body">
+                <h5 class="card-title" th:text="'Group Name:'+${g.name}"></h5>
+                <p class="card-text" th:text="${g.description}"></p>
+                <a href="#" class="btn btn-primary">Find Details</a>
+            </div>
+        </div>
+      </div>
+
+      <!--**************************************Footer*************************************-->
+      <footer class="page-footer font-small bg-dark mb-0">
+        <div class="footer-copyright text-center py-3 text-white">© 2022 Copyright:
+          <a >groupingnow.ca</a>
+        </div>
+      </footer>
+</body>
+</html>

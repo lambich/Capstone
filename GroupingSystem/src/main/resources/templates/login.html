@@ -11,6 +11,10 @@
 <body>
 <div class="container-fluid text-center">
 	<h1>Grouping Application</h1>
+	<div>
+		<img th:src="@{/images/logo.png}" class="img-fluid" style="width:100px;height:100px;"/>
+	</div>
+	<br>
 	<div th:if="${param.error}">
 		<p class="text-danger">Invalid email or password</p>
 	</div>
@@ -31,17 +35,12 @@
 			<p>
 				<input type="submit" value="Login" class="btn btn-success"/>
 			</p>
-
-		</div>
-	</form>
-
 			<div class="form-group">
 				<span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
 			</div>
 		</div>
 	</form>
 	
-
 </div>
 	
 </body>

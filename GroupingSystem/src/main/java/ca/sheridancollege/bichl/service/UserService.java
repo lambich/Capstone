@@ -6,11 +6,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import ca.sheridancollege.bichl.model.User;
 import ca.sheridancollege.bichl.Addition.StudentUserDetails;
 import ca.sheridancollege.bichl.web.dto.UserRegistrationDto;
 
+@Service
 public interface UserService extends UserDetailsService {
 
 	User save(UserRegistrationDto registrationDto);
@@ -32,6 +34,4 @@ public interface UserService extends UserDetailsService {
 	User getUserByEmail(String email);
 
 	//public  User getCurrentlyLoggedInUser(Authentication authentication);
-	
-	 
 }

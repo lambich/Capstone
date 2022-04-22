@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary  navbar-fixed-top">
+		<a class="navbar-brand" href="/">GroupingNow</a>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="navbar-nav">
+				<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/viewGroups}">View Groups</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/addGroup}">Add Group</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/viewUsers}">View Users</a></li>	
+				</ul>
+			</div>
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search">
+      				<button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+			</form>
+	
+	</nav>
+<h1>Create New Group</h1>
+	<form action="/addGroup" method="post" th:object="${group}" enctype="multipart/form-data">
+		Group Name: <br><input type="text" th:field="*{name}"><br>
+		Description:<br><textarea rows="10" cols="50" th:field="*{description}"></textarea><br>
+		Category: <br><select th:field="*{category}" name="category">
+			<option th:value="sports" th:text="Sports"></option>
+			<option th:value="charity" th:text="Charity"></option>
+			<option th:value="entertainment" th:text="Entertainment"></option>
+			<option th:value="social" th:text="Social"></option>
+			<option th:value="education" th:text="Education"></option>
+		</select><br><br>
+		
+		Field of Study:<br><select th:field="*{study}" name="study">
+			<option th:value="animationgamedesign" th:text="Animation"></option>
+			<option th:value="appliedcomputer" th:text="Computing"></option>
+			<option th:value="appliedhealth" th:text="Health"></option>
+			<option th:value="architecturalstudies" th:text="Architectural"></option>
+			<option th:value="business" th:text="Business"></option>
+			<option th:value="chemicalenvironmentalscience" th:text="Sciences"></option>
+			<option th:value="communitystudies" th:text="Community"></option>
+			<option th:value="na" th:text="NA"></option>
+		</select><br><br>
+		
+		<input type="file" name="image" accept="image/png, image/jpeg" ><br><br>
+		<input type="submit" value="Add Group">
+	</form>
+<br>
+</body>
+</html>

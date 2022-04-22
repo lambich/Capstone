@@ -1,6 +1,7 @@
 package ca.sheridancollege.bichl.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,6 +38,11 @@ public class User {
 	
 	private String password;
 	
+	private boolean enabled;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<SchoolGroup> groups;
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",
@@ -45,6 +51,10 @@ public class User {
 			inverseJoinColumns = @JoinColumn(
 					name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_event")
+	private List<Event> events;
 	
 
 	public User()
@@ -95,5 +105,12 @@ public class User {
 	}
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

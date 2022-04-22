@@ -1,5 +1,6 @@
 package ca.sheridancollege.bichl.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +29,8 @@ import ca.sheridancollege.bichl.web.dto.UserRegistrationDto;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+	private User user;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -81,16 +85,24 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
 		
-		 User user = userRepository.findByEmail(email); if(user == null) { throw new
-		 UsernameNotFoundException("Invalid email or password."); } return new
-		 org.springframework.security.core.userdetails.User(user.getEmail(),
+		 User user = userRepository.findByEmail(email); 
+		 if(user == null) 
+		 { 
+			 throw new UsernameNotFoundException("Invalid email or password."); 
+		 } 
+		 //return new StudentUserDetails(user);
+		 return new org.springframework.security.core.userdetails.User(user.getEmail(),
 		 user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 
 	}
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-	}
+	
+	 private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) 
+	 { 
+		 return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()); 
+	 }
+
+	
 
 	@Override
 	public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
@@ -105,22 +117,32 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getCurrentlyLoggedInUser(Authentication authentication) {
 		
-		if(authentication == null) 
-		{
-			System.out.printf("\n No User accessed \n");
-			return null;
+		
+		/*
+		 * if(authentication == null) { System.out.printf("\n No User accessed \n");
+		 * return null; } User user = null; Object principal =
+		 * authentication.getPrincipal(); if (principal instanceof StudentUserDetails) {
+		 * user = ((StudentUserDetails)principal).getUser();
+		 * System.out.printf("\n User 1 \n"); } else if(principal instanceof
+		 * StudentUserDetails) { String email = ((StudentUserDetails)
+		 * principal).getEmail(); user = userRepository.findByEmail(email);
+		 * System.out.printf("\n User 2 \n"); } return user;
+		 */
+		 
+		//Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+
+		Object principal = null;
+     
+		if (authentication != null) {
+        principal = authentication.getPrincipal();
 		}
-		User user = null; 
-		Object principal = authentication.getPrincipal();
-		if (principal instanceof StudentUserDetails) {
-			  user = ((StudentUserDetails)principal).getUser();
-			  System.out.printf("\n User 1 \n");
-			} else if(principal instanceof StudentUserDetails) {
-				String email = ((StudentUserDetails) principal).getEmail();
-				user = userRepository.findByEmail(email);
-				System.out.printf("\n User 2 \n");
-			}
-		return user;
+     
+		if (principal != null && principal instanceof StudentUserDetails) {
+			StudentUserDetails userDetails = (StudentUserDetails) principal;
+        return userDetails.getUser();
+		}
+     
+		return null;
 
 	}
 

@@ -19,5 +19,11 @@ public class CartEventServices {
 			return carteventrepository.findByUser(user);
 		}
 		
+		public void removeEventFromCart(long id) {
+			// TODO Auto-generated method stub
+			//this.carteventrepository.deleteById(id);
+			this.carteventrepository.deleteById(id);
+		}
+		
 		
 }

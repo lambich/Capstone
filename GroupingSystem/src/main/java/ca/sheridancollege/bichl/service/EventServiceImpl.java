@@ -8,9 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ca.sheridancollege.bichl.model.CartEvent;
 import ca.sheridancollege.bichl.model.Event;
+import ca.sheridancollege.bichl.model.User;
+import ca.sheridancollege.bichl.repository.CartEventRepository;
 import ca.sheridancollege.bichl.repository.EventRepository;
 
 
@@ -19,6 +24,12 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	private EventRepository eventRepository;
+	
+	@Autowired
+	private CartEventRepository carteventrepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public List<Event> getAllEvents(){
@@ -45,8 +56,25 @@ public class EventServiceImpl implements EventService{
 	@Override
 	public void deleteEventById(long id) {
 		// TODO Auto-generated method stub
+		//this.carteventrepository.deleteById(id);
 		this.eventRepository.deleteById(id);
 	}
+	
+	@Override
+	public void addEventToCart(long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.getUserByEmail(auth.getName());
+		
+		CartEvent newEvent = new CartEvent();
+		newEvent.setUser(user);
+		newEvent.setEvent(this.eventRepository.getById(id));
+		newEvent.setQuantity(1);
+		
+		CartEvent saveCartEvent = carteventrepository.save(newEvent);
+		saveCartEvent.getId();
+	}
+	
+
 
 	@Override
 	public Page<Event> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
@@ -55,5 +83,10 @@ public class EventServiceImpl implements EventService{
 		
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
 		return this.eventRepository.findAll(pageable);
+	}
+
+	@Override
+	public void save(Event event) {
+		eventRepository.save(event);
 	}
 }

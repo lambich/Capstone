@@ -47,7 +47,7 @@ public class StudentUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return user.getFirstName();
+		return user.getFirstName() + " " + user.getLastName();
 	}
 
 	@Override

@@ -1,14 +1,27 @@
 package ca.sheridancollege.bichl.model;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import lombok.RequiredArgsConstructor;
+
 
 
 @Entity
@@ -48,6 +61,16 @@ public class Event {
 	
 	@Column(name = "num_of_attendance")
 	private int numOfAttentdance;
+	@Lob
+	@Column(name = "event_image", nullable = true)
+	private byte[] event_image;
+	
+	@Transient
+	String base64Encoded;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="events")
+	private List<User> attendees;
+	
 	
 	public Event()
 	{
@@ -55,7 +78,7 @@ public class Event {
 	}
 	
 	public Event(String hostName, String eventName, String description, String typeOfEvent, String category,
-			String location, Date date, Time time, int numOfSpot, int numOfAttentdance) {
+			String location, Date date, Time time, int numOfSpot, int numOfAttentdance, byte[]  eventImage) {
 		super();
 		this.hostName = hostName;
 		this.eventName = eventName;
@@ -67,7 +90,15 @@ public class Event {
 		this.time = time;
 		this.numOfSpot = numOfSpot;
 		this.numOfAttentdance = numOfAttentdance;
+		this.event_image = eventImage;
 	}
+	
+//	@Transient
+//    public String getPhotosImagePath() {
+//        if (eventImage == null || id == null) return null;
+//         
+//        return "/user-photos/" + id + "/" + eventImage;
+//    }
 	
 	public Long getId() {
 		return id;
@@ -135,5 +166,23 @@ public class Event {
 	public void setNumOfAttentdance(int numOfAttentdance) {
 		this.numOfAttentdance = numOfAttentdance;
 	}
-		
+	public byte[]  getEventImage() {
+		return event_image;
+	}
+
+	public void setEventImage(byte[]  eventImage) {
+		this.event_image = eventImage;
+	}
+
+	public void setBase64Encoded(String b) {
+		base64Encoded=b;
+	}
+	
+	public String getBase64Encoded() {
+		return base64Encoded;
+	}
+	
+	public List<User> getAttendees(){
+		return attendees;
+	}
 }

@@ -12,5 +12,7 @@ public interface EventService {
 	void saveEvent(Event event);
 	Event getEventById(long id);
 	void deleteEventById(long id);
+	void addEventToCart(long id);
 	Page<Event> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+	void save(Event event);
 }

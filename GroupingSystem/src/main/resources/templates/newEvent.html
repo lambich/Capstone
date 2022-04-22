@@ -19,7 +19,7 @@
 		<hr>
 		<h2>Save Event</h2>
 		
-		<form action="#" th:action="@{/saveEvent}" th:object="${event}" method="POST">
+		<form action="#" th:action="@{/addEvent}" th:object="${event}" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label class="control-label" for="eventName"> Event Name: </label>
 				<input type="text" th:field="*{eventName}" placeholder="Event Name" class="form-control mb-4 col-4">
@@ -40,7 +40,10 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="Category"> Category: </label>
-				<input type="text" th:field="*{Category}" placeholder="Category" class="form-control mb-4 col-4">
+				<!-- <input type="text" th:field="*{Category}" placeholder="Category" class="form-control mb-4 col-4"> -->
+				<select class="form-select" aria-label="Default select example" th:field="*{Category}">
+  					<option th:each="Category : ${categoriesList}" th:value="${Category}" th:text="${Category}"/>
+				</select>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="location"> Location: </label>
@@ -63,6 +66,10 @@
 			<div class="form-group">
 				<label class="control-label" for="numOfAttentdance"> Number Of Attendance: </label>
 				<input type="text" th:field="*{numOfAttentdance}" placeholder="Number Of Attendance" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="eventImage"> Upload Image Title: </label>
+				<input type="file" name="image" accept="image/png, image/jpeg, image/jpg">
 			</div>
 		
 			
